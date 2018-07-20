@@ -21,8 +21,7 @@ if __name__ == '__main__':
           search_query = a + " OR " + b
                         
        if z == 'n':
-           
-              search_query = raw_input("Ingrese parametro de busqueda : ")
+          search_query = raw_input("Ingrese parametro de busqueda : ")
        if not z:
            sys.exit()
        rate_delay_seconds = 0
