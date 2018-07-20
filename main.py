@@ -18,20 +18,11 @@ if __name__ == '__main__':
        if z == 'p':
           a = raw_input("Introduzca Primer Parametro : ")
           b = raw_input("Introduzca Segundo Parametro : ")
-          """
-          if a < '0' or b < '0':
-                 print("\nParametro erroneo, hasta luego...\n")
-                 break
-          """       
           search_query = a + " OR " + b
                         
        if z == 'n':
            
               search_query = raw_input("Ingrese parametro de busqueda : ")
-              #if  search_query < '0':
-                 # print("\nParametro erroneo, hasta luego...\n")
-                 # break
-                  #str(search_query )
        if not z:
            sys.exit()
        rate_delay_seconds = 0
