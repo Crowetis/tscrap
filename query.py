@@ -2,11 +2,12 @@ from __future__ import print_function
 import sys
 import json
 import datetime
-import MySQLdb
+import MySQLdb 
 import logging as log
 from time import sleep
 import random
 from concurrent.futures import ThreadPoolExecutor
+
 h_list = ["Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1",
                 "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36",
                 "Mozilla/5.0 (Windows; U; Windows NT 6.1; x64; fr; rv:1.9.2.13) Gecko/20101203 Firebird/3.6.13",
@@ -28,15 +29,15 @@ from abc import abstractmethod
 from bs4 import BeautifulSoup
 
 dot  = []
-db_host = 'localhost'
-db_user = 'scrapper'
-db_pass = 'scrapper'
-db_name = 'prueba'
+db_host = 'localhost/ip'
+db_user = 'user'
+db_pass = 'passw'
+db_name = 'your_db_name'
 query1 = ''
 
 __author__ = 'Tom Dickinson'
 
-__author__ = 'Daniel Guerrero'
+__modified__ = 'Daniel Guerrero'
 
 
 class TwitterSearch(object):
@@ -183,33 +184,22 @@ class TwitterSearch(object):
             	rt = tweet['retweets']
             	fav = tweet['favorites']
             	
-            	dut = us.replace("'", "").encode('utf-8')
-	    	dot = det.replace("'", "").encode('utf-8')
-	    	"""
-	    	listaPalabras = dot.split()
+            	us = us.replace("'", "").encode('utf-8')
+	    	det = det.replace("'", "").encode('utf-8')
 	    	
-	    	frecuenciaPalab = []
-	    	for w in listaPalabras:
-	    	    frecuenciaPalab.append(listaPalabras.count(w))
-	    	
-	    	print("Cadena\n" + dot +"\n")
-	    	print("Lista\n" + str(listaPalabras) + "\n")
-                print("Frecuencias\n" + str(frecuenciaPalab) + "\n")
-                print("Pares\n" + str(zip(listaPalabras, frecuenciaPalab)))
-	    	"""
 	       	query1 = "SELECT count(*) from  ejemplo "
 		cursor.execute(query1)
 		dats = cursor.fetchall()
 		if len(dats) == 0:
 
-	    		query1 = "INSERT INTO ejemplo (contenido, fecha, usuario, c_rts, favs) VALUES ('%s', '[%s]', '@%s', '%d', '%d')" %(dot, t1.strftime(fmt1), dut, rt, fav)
+	    		query1 = "INSERT INTO ejemplo (fecha, usuario, contenido, c_rts, favs) VALUES ('%s', '[%s]', '@%s', '%d', '%d')" %(t1.strftime(fmt1), us, det, rt, fav)
 			
 		else:
 			query1 = "SELECT id FROM ejemplo WHERE fecha = '[%s]'" %t1.strftime(fmt1)
 			cursor.execute(query1)
 			dats = cursor.fetchall()
 			if len(dats) == 0:
-				query1 = "INSERT INTO ejemplo (contenido, fecha, usuario, c_rts, favs) VALUES ('%s', '[%s]', '@%s', '%d', '%d')" %(dot, t1.strftime(fmt1), dut, rt, fav) 
+				query1 = "INSERT INTO ejemplo (fecha, usuario, contenido, c_rts, favs) VALUES ('%s', '[%s]', '@%s', '%d', '%d')" %(t1.strftime(fmt1), us, det, rt, fav)
 				
 		cursor.execute(query1)
 		conn.commit()
